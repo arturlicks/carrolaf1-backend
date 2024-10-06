@@ -1,0 +1,108 @@
+# Sample API YAML File
+
+# This is a sample api YAML file (sample-api.yaml) to demonstrate the structure for documenting your API.
+
+# To organize your api effectively, create separate YAML files for each API Controller (e.g., user-api.yaml, course-api.yaml), handling specific responsibilities for users and courses endpoints respectively.
+
+# Integrate these YAML files into your swagger.ts or swagger.js file to consolidate your API documentation.
+
+# Example:
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+  description: APIs related to Users
+
+servers:
+  - url: /api/v1
+    description: Local development server
+
+paths:
+  /register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      operationId: userRegistration
+      requestBody:
+        description: Data required to register a new user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - confirmPassword
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                  description: "The user's full name"
+                email:
+                  type: string
+                  format: email
+                  example: "john.doe@example.com"
+                  description: "The user's email address"
+                password:
+                  type: string
+                  format: password
+                  description: "The user's password"
+                  example: "StrongPassword123!"
+                confirmPassword:
+                  type: string
+                  format: password
+                  description: "Confirm the user's password"
+                  example: "StrongPassword123!"
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Please check your email: john.doe@example.com to activate your account"
+                  activationToken:
+                    type: string
+                    description: "The activation token sent to the user's email"
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Bad request - Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Passwords do not match"
+        '409':
+          description: Conflict - Email already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Email already exists"
+      security: []
+
+# // swagger.ts or swagger.js
+# const userAPI = yamlAPIDocuments["user-api"];
+
+# follow this method to integrate all your yaml files
