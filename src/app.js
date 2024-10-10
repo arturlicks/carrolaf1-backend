@@ -7,6 +7,9 @@ import { middlewareErrorHandler } from "./middleware/error.js";
 import swaggerUi from "swagger-ui-express";
 import OPENAPI_DOCS_SPEC from "./swagger-docs/swagger.js";
 
+import connectDB from "./utils/db.js";
+import teamRoutes from "./routes/team.js";
+
 export const app = express();
 
 // body parser
@@ -22,8 +25,12 @@ app.use(
   })
 );
 
+// Connect to the DB
+connectDB();
+
 // routes
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(OPENAPI_DOCS_SPEC));
+app.use("/teams", teamRoutes);
 
 // Testing api
 app.get("/api/test", (request, response) => {
