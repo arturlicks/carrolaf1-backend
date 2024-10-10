@@ -26,7 +26,7 @@ To get started with this project, follow these steps:
    pnpm dev
    ```
 
-   Open [http://localhost:3000/test](http://localhost:3000/tset) with your browser to see the result.
+   Open [http://localhost:3000/test](http://localhost:3000/test) with your browser to see the result.
 
 You can start editing the project by modifying the files inside the `src/` directory. The server will auto-reload when you save your changes.
 
