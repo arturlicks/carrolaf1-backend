@@ -6,61 +6,121 @@
 
 # Import these YAML files into your swagger.ts or swagger.js file to consolidate your API documentation.
 
-# Example:
 components:
   schemas:
-    User:
+    Team:
       type: object
-      required:
-        - name
-        - email
-        - password
       properties:
+        _id:
+          type: string
+          example: 5f8f8c44b54764421b7161d9
         name:
           type: string
-          description: Name of the user
-        email:
+          example: Team A
+        driver1:
           type: string
-          description: Email address of the user
-          format: email
-        password:
+          example: Driver 1
+        driver2:
           type: string
-          description: User's password (hashed, not returned by default)
-          format: password
-        avatar:
-          type: object
-          properties:
-            public_id:
-              type: string
-              description: Public ID of the user's avatar
-            url:
-              type: string
-              description: URL of the user's avatar
-          description: Avatar of the user
-        role:
+          example: Driver 2
+        chassi:
           type: string
-          description: Role of the user, defaults to "user"
-          example: user
-        isVerified:
-          type: boolean
-          description: Whether the user is verified
-          default: false
-        courses:
-          type: array
-          items:
-            type: object
-            properties:
-              courseId:
-                type: string
-                description: The course ID associated with the user
-        createdAt:
+          example: Chassi Type
+        engine:
           type: string
-          format: date-time
-          description: Timestamp when the user was created
-        updatedAt:
+          example: Engine Type
+        budget:
+          type: number
+          example: 1000000
+        player:
           type: string
-          format: date-time
-          description: Timestamp when the user was last updated
+          example: Player Name
+
+paths:
+  /listteams:
+    get:
+      summary: List all teams
+      responses:
+        '200':
+          description: Successfully retrieved the list of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+  /createteam:
+    post:
+      summary: Create a new team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '201':
+          description: Team created successfully
+        '500':
+          description: Internal server error
+
+# Example:
+# components:
+#   schemas:
+#     User:
+#       type: object
+#       required:
+#         - name
+#         - email
+#         - password
+#       properties:
+#         name:
+#           type: string
+#           description: Name of the user
+#         email:
+#           type: string
+#           description: Email address of the user
+#           format: email
+#         password:
+#           type: string
+#           description: User's password (hashed, not returned by default)
+#           format: password
+#         avatar:
+#           type: object
+#           properties:
+#             public_id:
+#               type: string
+#               description: Public ID of the user's avatar
+#             url:
+#               type: string
+#               description: URL of the user's avatar
+#           description: Avatar of the user
+#         role:
+#           type: string
+#           description: Role of the user, defaults to "user"
+#           example: user
+#         isVerified:
+#           type: boolean
+#           description: Whether the user is verified
+#           default: false
+#         courses:
+#           type: array
+#           items:
+#             type: object
+#             properties:
+#               courseId:
+#                 type: string
+#                 description: The course ID associated with the user
+#         createdAt:
+#           type: string
+#           format: date-time
+#           description: Timestamp when the user was created
+#         updatedAt:
+#           type: string
+#           format: date-time
+#           description: Timestamp when the user was last updated
 
 
 # // swagger.ts or swagger.js
